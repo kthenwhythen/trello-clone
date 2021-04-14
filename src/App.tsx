@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useAppState } from "./AppStateContext";
+import { Column } from './components/Column'
+import { AddNewItem } from './components/AddNewItem'
+import { AppContainer } from './styles'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export const App = () => {
+	const { state } = useAppState()
+
+	return (
+		<AppContainer>
+			{state.lists.map((list, i) => (
+				<Column text={list.text} key={list.id} index={i} />
+			))}
+			<AddNewItem toggleButtonText="+ Add another list" onAdd={text => console.log(text)} />
+		</AppContainer>
+	)
 }
-
-export default App;
