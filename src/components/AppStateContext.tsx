@@ -1,6 +1,11 @@
 import { createContext, Dispatch, useContext, useReducer } from 'react'
 import { nanoid } from 'nanoid'
-import { findItemIndexById } from '../utils/arrayUtils'
+import {
+  findItemIndexById,
+  overrideItemAtIndex,
+  moveItem,
+} from '../utils/arrayUtils'
+import { DragItem } from '../DragItem'
 
 // Data
 type Task = {
@@ -16,6 +21,7 @@ type List = {
 
 export type AppState = {
   lists: List[]
+  draggedItem: DragItem | undefined
 }
 
 const appData: AppState = {
@@ -36,6 +42,7 @@ const appData: AppState = {
       tasks: [{ id: 'c3', text: 'Begin to use static typing' }],
     },
   ],
+  draggedItem: undefined,
 }
 
 // Actions
@@ -47,6 +54,17 @@ type Action =
   | {
       type: 'ADD_TASK'
       payload: { text: string; listId: string }
+    }
+  | {
+      type: 'MOVE_LIST'
+      payload: {
+        dragIndex: number
+        hoverIndex: number
+      }
+    }
+  | {
+      type: 'SET_DRAGGED_ITEM'
+      payload: DragItem | undefined
     }
 
 // Reducers
@@ -73,6 +91,16 @@ const appStateReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
       }
+    }
+    case 'MOVE_LIST': {
+      const { dragIndex, hoverIndex } = action.payload
+      return {
+        ...state,
+        lists: moveItem(state.lists, dragIndex, hoverIndex),
+      }
+    }
+    case 'SET_DRAGGED_ITEM': {
+      return { ...state, draggedItem: action.payload }
     }
     default: {
       return state
