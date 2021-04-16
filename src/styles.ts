@@ -20,7 +20,7 @@ export const ColumnContainer = styled.div`
     flex-grow: 0;
 `
 
-export const ColumnTitle= styled.div`
+export const ColumnTitle = styled.div`
     padding: 6px 16px 12px;
     font-weight: bold;
 `
@@ -35,7 +35,7 @@ export const CardContainer = styled.div`
     box-shadow: #091e4240 0px 1px 0px 0px;
 `
 
-type AddItemButtonProps ={
+type AddItemButtonProps = {
     dark?: boolean
 }
 
@@ -43,7 +43,7 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
     background-color: #ffffff3d;
     border-radius: 3px;
     border: none;
-    color: ${props => (props.dark ? '#000' : '#fff')};
+    color: ${(props) => (props.dark ? '#000' : '#fff')};
     cursor: pointer;
     max-width: 300px;
     padding: 10px 12px;
