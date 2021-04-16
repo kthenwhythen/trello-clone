@@ -5,10 +5,10 @@ import { App } from './components/App'
 import { AppStateProvider } from './components/AppStateContext'
 
 render(
-    <StrictMode>
-        <AppStateProvider>
-            <App />
-        </AppStateProvider>
-    </StrictMode>,
-    document.getElementById('root')
+  <StrictMode>
+    <AppStateProvider>
+      <App />
+    </AppStateProvider>
+  </StrictMode>,
+  document.getElementById('root')
 )
